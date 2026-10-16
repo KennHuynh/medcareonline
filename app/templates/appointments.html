@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Appointments · MedCare{% endblock %}
+
+{% macro card(a, upcoming) %}
+<article class="card appt">
+  <div class="row">
+    <div>
+      <h3>{{ a.doctor.name }} <span class="muted">· {{ a.doctor.specialty }}</span></h3>
+      <p class="when">{{ a.starts_at|pretty_dt }}</p>
+      <p>{{ a.reason }}</p>
+    </div>
+    {% if a.status == 'cancelled' %}
+      <span class="badge cancelled">Cancelled</span>
+    {% elif upcoming %}
+      <span class="badge scheduled">Scheduled</span>
+    {% else %}
+      <span class="badge done">Completed</span>
+    {% endif %}
+  </div>
+
+  {% if upcoming %}
+  <div class="actions">
+    <form method="post" action="/appointments/{{ a.id }}/reschedule" class="inline-form">
+      <input type="datetime-local" name="starts_at" step="1800" required aria-label="New date and time">
+      <button class="btn small ghost" type="submit">Reschedule</button>
+    </form>
+    <form method="post" action="/appointments/{{ a.id }}/cancel" onsubmit="return confirm('Cancel this appointment?')">
+      <button class="btn small danger" type="submit">Cancel</button>
+    </form>
+    <a class="btn small ghost" href="/messages/{{ a.doctor_id }}">Message</a>
+  </div>
+  {% endif %}
+
+  {% if a.status != 'cancelled' %}
+  <details>
+    <summary>Visit notes{% if a.notes %} (saved){% endif %}</summary>
+    <form method="post" action="/appointments/{{ a.id }}/notes" class="form">
+      <textarea name="notes" rows="4" maxlength="2000" placeholder="Questions to ask, what the doctor said, next steps…">{{ a.notes }}</textarea>
+      <button class="btn small" type="submit">Save notes</button>
+    </form>
+  </details>
+  {% endif %}
+</article>
+{% endmacro %}
+
+{% block content %}
+<div class="row">
+  <h1>Your appointments</h1>
+  <a class="btn" href="/appointments/new">Book appointment</a>
+</div>
+
+<h2>Upcoming</h2>
+{% for a in upcoming %}{{ card(a, true) }}{% else %}
+  <p class="empty">Nothing scheduled. <a href="/doctors">Find a doctor</a> to book your next visit.</p>
+{% endfor %}
+
+<h2>Past &amp; cancelled</h2>
+{% for a in past %}{{ card(a, false) }}{% else %}
+  <p class="empty">No past appointments yet.</p>
+{% endfor %}
+{% endblock %}

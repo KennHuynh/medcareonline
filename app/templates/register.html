@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Sign up · MedCare{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>Create your account</h1>
+  {% if errors %}
+    <div class="flash error"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  <form method="post" action="/register" class="form">
+    <label>Name <input name="name" value="{{ name }}" required maxlength="120" autocomplete="name"></label>
+    <label>Email <input type="email" name="email" value="{{ email }}" required autocomplete="email"></label>
+    <label>Password <input type="password" name="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+    <p class="muted small-text">At least 8 characters.</p>
+    <button class="btn" type="submit">Sign up</button>
+  </form>
+  <p class="muted">Already have an account? <a href="/login">Log in</a></p>
+</section>
+{% endblock %}

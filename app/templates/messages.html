@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Messages · MedCare{% endblock %}
+{% block content %}
+<h1>Messages</h1>
+
+<h2>Conversations</h2>
+{% for m in conversations %}
+  <a class="card convo" href="/messages/{{ m.doctor_id }}">
+    <div class="row">
+      <strong>{{ m.doctor.name }}</strong>
+      <span class="muted small-text">{{ m.created_at|msg_time }}</span>
+    </div>
+    <p class="muted preview">{{ m.body[:120] }}{% if m.body|length > 120 %}…{% endif %}</p>
+  </a>
+{% else %}
+  <p class="empty">No conversations yet. Start one below.</p>
+{% endfor %}
+
+{% if others %}
+<h2>Start a conversation</h2>
+<div class="grid two">
+  {% for d in others %}
+    <a class="card convo" href="/messages/{{ d.id }}">
+      <strong>{{ d.name }}</strong>
+      <span class="muted"> · {{ d.specialty }}</span>
+    </a>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

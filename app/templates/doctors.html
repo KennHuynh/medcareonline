@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Find a doctor · MedCare{% endblock %}
+{% block content %}
+<h1>Find a doctor</h1>
+<form method="get" action="/doctors" class="filters">
+  <input type="search" name="q" value="{{ q }}" placeholder="Search by name, specialty, or location" aria-label="Search doctors">
+  <select name="specialty" aria-label="Specialty">
+    <option value="">All specialties</option>
+    {% for s in specialties %}
+      <option value="{{ s }}" {% if s == specialty %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn" type="submit">Search</button>
+</form>
+
+{% if doctors %}
+  <p class="muted">{{ doctors|length }} doctor{{ '' if doctors|length == 1 else 's' }} found</p>
+  <div class="grid two">
+    {% for d in doctors %}
+      <article class="card">
+        <h3>{{ d.name }}</h3>
+        <p><span class="badge">{{ d.specialty }}</span> <span class="muted">{{ d.location }}</span></p>
+        <p>{{ d.bio }}</p>
+        <div class="actions">
+          <a class="btn small" href="/appointments/new?doctor_id={{ d.id }}">Book appointment</a>
+          <a class="btn small ghost" href="/messages/{{ d.id }}">Message</a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty">No doctors match your search. Try a different name or specialty.</p>
+{% endif %}
+{% endblock %}

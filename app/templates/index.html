@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}MedCare · Manage your health in one place{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>All your doctors. One place.</h1>
+  <p class="lead">Book and manage appointments, message your doctors, keep visit notes, and find the right doctor without the runaround.</p>
+  <p>
+    <a class="btn" href="/register">Create a free account</a>
+    <a class="btn ghost" href="/doctors">Browse doctors</a>
+  </p>
+</section>
+
+<section class="grid three">
+  <article class="card">
+    <h3>Appointments</h3>
+    <p>See upcoming and past visits together, and schedule, reschedule, or cancel in a few clicks.</p>
+  </article>
+  <article class="card">
+    <h3>Messages &amp; notes</h3>
+    <p>Send a question to any of your doctors and keep your own notes from every visit.</p>
+  </article>
+  <article class="card">
+    <h3>Find the right doctor</h3>
+    <p>Search by specialty, name, or location to find a doctor who fits what you need.</p>
+  </article>
+</section>
+{% endblock %}

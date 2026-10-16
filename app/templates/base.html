@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MedCare{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="brand" href="/">MedCare</a>
+      <nav>
+        <a href="/doctors">Find a doctor</a>
+        {% if user %}
+          <a href="/appointments">Appointments</a>
+          <a href="/messages">Messages</a>
+          <form method="post" action="/logout" class="inline">
+            <button class="linklike" type="submit">Log out ({{ user.name }})</button>
+          </form>
+        {% else %}
+          <a href="/login">Log in</a>
+          <a class="btn small" href="/register">Sign up</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% if flash %}<div class="flash {{ flash.kind }}" role="status">{{ flash.text }}</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="wrap muted small-text">
+    Class project demo. All doctors are fictional, so please don't enter real medical information.
+  </footer>
+</body>
+</html>

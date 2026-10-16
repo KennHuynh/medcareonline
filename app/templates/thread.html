@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ doctor.name }} · MedCare{% endblock %}
+{% block content %}
+<p><a href="/messages">&larr; All messages</a></p>
+<h1>{{ doctor.name }}</h1>
+<p class="muted">{{ doctor.specialty }} · {{ doctor.location }}</p>
+
+<div class="thread">
+  {% for m in messages %}
+    <div class="bubble {{ m.sender }}">
+      <p>{{ m.body }}</p>
+      <span class="small-text muted">{{ 'You' if m.sender == 'patient' else 'Office' }} · {{ m.created_at|msg_time }}</span>
+    </div>
+  {% else %}
+    <p class="empty">No messages yet. Ask {{ doctor.name }} a question below.</p>
+  {% endfor %}
+</div>
+
+<form method="post" action="/messages/{{ doctor.id }}" class="form">
+  <label>Your message
+    <textarea name="body" rows="4" maxlength="2000" required></textarea>
+  </label>
+  <p class="muted small-text">Not for emergencies. If this is urgent, call 911.</p>
+  <button class="btn" type="submit">Send</button>
+</form>
+{% endblock %}

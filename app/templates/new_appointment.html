@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Book appointment · MedCare{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>Book an appointment</h1>
+  {% if errors %}
+    <div class="flash error"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  <form method="post" action="/appointments" class="form">
+    <label>Doctor
+      <select name="doctor_id" required>
+        <option value="">Choose a doctor</option>
+        {% for d in doctors %}
+          <option value="{{ d.id }}" {% if d.id == doctor_id %}selected{% endif %}>{{ d.name }} · {{ d.specialty }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Date and time
+      <input type="datetime-local" name="starts_at" value="{{ starts_at }}" step="1800" required>
+    </label>
+    <p class="muted small-text">Monday to Friday, 9:00 AM to 5:00 PM, on the hour or half hour.</p>
+    <label>Reason for visit
+      <input name="reason" value="{{ reason }}" maxlength="255" required placeholder="Annual check-up, knee pain, follow-up…">
+    </label>
+    <button class="btn" type="submit">Book appointment</button>
+  </form>
+</section>
+{% endblock %}
