@@ -1,14 +1,23 @@
 {% extends "base.html" %}
 {% block title %}MedCare · Manage your health in one place{% endblock %}
 {% block content %}
-<section class="hero">
-  <p class="eyebrow">Care that fits your life</p>
-  <h1>All your doctors. One place.</h1>
-  <p class="lead">Book and manage appointments, message your doctors, keep visit notes, and find the right doctor without the runaround.</p>
-  <p>
-    <a class="btn" href="/register">Create a free account</a>
-    <a class="btn ghost" href="/doctors">Browse doctors</a>
-  </p>
+<section class="hero-layout">
+  <div class="hero">
+    <p class="eyebrow">Care that fits your life</p>
+    <h1>Feel better about your healthcare.</h1>
+    <p class="lead">A calmer way to book visits, stay connected to your care team, and keep every important detail in one place.</p>
+    <p>
+      <a class="btn" href="/register">Create a free account <span aria-hidden="true">→</span></a>
+      <a class="btn ghost" href="/doctors">Browse doctors</a>
+    </p>
+    <div class="trust-row"><span class="avatar-stack"><i>J</i><i>M</i><i>A</i></span><span><strong>Simple care,</strong> thoughtfully organized</span></div>
+  </div>
+  <div class="care-preview" aria-label="MedCare dashboard preview">
+    <div class="preview-top"><span class="preview-kicker">Good morning</span><span class="preview-dot">•••</span><strong>Your care at a glance</strong></div>
+    <div class="preview-appointment"><span class="mini-icon">✦</span><div><span class="small-text muted">NEXT APPOINTMENT</span><strong>Dr. Maya Chen</strong><span class="muted">Tomorrow · 10:30 AM</span></div><span class="badge">Confirmed</span></div>
+    <div class="preview-stats"><div><strong>04</strong><span>Visits this year</span></div><div><strong>02</strong><span>Saved doctors</span></div><div><strong>100%</strong><span>Peace of mind</span></div></div>
+    <div class="preview-message"><span class="mini-icon peach">✉</span><div><strong>New message from your care team</strong><span class="muted small-text">Your office replied to your question.</span></div><span class="unread"></span></div>
+  </div>
 </section>
 
 <section class="grid three">
@@ -25,4 +34,5 @@
     <p>Search by specialty, name, or location to find a doctor who fits what you need.</p>
   </article>
 </section>
+<section class="home-note"><span class="note-mark">+</span><div><strong>Healthcare should feel more human.</strong><p>MedCare keeps the busywork out of the way so you can focus on feeling your best.</p></div><a href="/doctors">Explore care options <span aria-hidden="true">↗</span></a></section>
 {% endblock %}
