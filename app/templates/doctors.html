@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Find a doctor · MedCare{% endblock %}
 {% block content %}
+<p class="eyebrow">Your care team</p>
 <h1>Find a doctor</h1>
 <form method="get" action="/doctors" class="filters">
   <input type="search" name="q" value="{{ q }}" placeholder="Search by name, specialty, or location" aria-label="Search doctors">
